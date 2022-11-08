@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AddCart</title>
+    <link rel="stylesheet" href="cart.css">
+
+    <style>
+        #containerSKK{
+            /* height: 230px; */
+            width: 45%;
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+            /* display: flex; */
+            border-radius: 10px;
+            padding-bottom: 50px;
+            padding-left: 30px;
+            margin-left: 50px;
+        
+        }
+        a{
+            margin-left: 400px;
+            margin-top: 200px;
+        }
+        .boxI{
+            /* height: 100%; */
+            width: 30%;
+            /* border-top: 0.3px solid grey; */
+           
+        }
+        .boxI>img{
+            /* height: 100px; */
+            width: 100px;
+            margin-left: 50px;
+            margin-top: 70px;
+        }
+        .boxW{
+            height: 100%;
+            width: 70%;
+            margin-left: 20px;
+            /* border-bottom:  0.3px solid grey;
+           */
+        }
+        h5{
+           
+            font-family: sans-serif;
+            font-style: normal;
+            font-weight: 700px;
+            font-size: 20px;
+            line-height: 25px;
+            color: #4f585e; 
+
+        }
+        .stp{
+            margin-left: 420px;
+            margin-top: -50px;
+            text-decoration: line-through;
+            font-family: sans-serif;
+            font-style: normal;
+            font-weight: 400px;
+            font-size: 14px;
+            line-height: 18px;
+            color: #4f585e;
+            
+        }
+        .pcs{
+            margin-left: 420px;
+            margin-top: -15px;
+            font-family: sans-serif;
+            font-style: normal;
+            font-weight: 700px;
+            font-size: 20px;
+            line-height: 25px;
+            color: #2e3031; 
+        }
+        .persof{
+            margin-left: 440px;
+            margin-top: -20px;
+            font-family: sans-serif;
+            font-style: normal;
+            font-weight: 700px;
+            font-size: 10px;
+            line-height: 13px;
+            color: white;
+            
+        }
+        .pinkTag{
+            margin-left: 430px;
+            border-radius: 5px;
+        }
+        .mrpS{
+            margin-left: 382px;
+            margin-top: -63px;
+            font-family: sans-serif;
+            font-style: normal;
+            font-weight: 400px;
+            font-size: 14px;
+            line-height: 18px;
+            color: #4f585e;
+        }
+        .calci{
+            font-family: sans-serif;
+            font-style: normal;
+            font-weight: 400px;
+            font-size: 14px;
+            line-height: 18px;
+            color: #737b80;
+        }
+        .pie{
+            font-family: sans-serif;
+            font-style: normal;
+            font-weight: 600px;
+            font-size: 16px;
+            line-height: 20px;
+            color: teal; 
+            font-weight: bold;
+        }
+        .remove{
+            height: 30px;
+            width: 150px ;
+            border: none;
+            color: white;
+            font-family: sans-serif;
+            font-style: normal;
+            font-weight: 700px;
+            font-size: 20px;
+            line-height: 25px;
+            border-radius: 5px;
+            background-color: #f47778;
+        }
+        .remove:hover{
+            cursor: pointer;
+            background-color: #ee6262;
+        }
+        .cardDetail{
+            margin-top: 20px;
+            margin-left: 80px;
+            height: 40px;
+            width: 200px ;
+            border: none;
+            color: white;
+            font-family: sans-serif;
+            font-style: normal;
+            font-weight: 700px;
+            font-size: 20px;
+            line-height: 25px;
+            border-radius: 5px;
+            background-color: #fc813a;
+        }
+        .cardDetail:hover{
+            cursor: pointer;
+            background-color: #f37227;
+        }
+        #priceSk{
+   
+            font-family: sans-serif;
+            font-style: normal;
+            font-weight: 700px;
+            font-size: 20px;
+            line-height: 25px;
+            color: #3bb896;
+            margin-left: 50px;
+            /* background-color: #aceaee; */
+        }
+
+    </style>
+</head>
+
+<body>
+  
+    <!-- <h1>Checkout</h1> -->
+    <h3 id="priceSk">
+    </h3>
+    <div id="containerSKK">
+        <!-- <a href="" id="card"></a> -->
+        <!-- <div>
+            
+        </div> -->
+    </div>
+    <a href="" id="card"></a>
+</body>
+</html>
+<script>
+    var a = document.querySelector("#card");
+        a.href =  "cardDetail.html";
+
+        var btn = document.createElement("button");
+        btn.innerText = "Pay Now"
+        a.append(btn);
+        btn.setAttribute("class", "cardDetail")
+
+    //     a.addEventListener("click", function () {
+    //        goEnterCard(elem);
+    // });
+
+    var choosenCart = JSON.parse(localStorage.getItem("cart"));
+    // console.log(choosenCart);
+
+    var total = choosenCart.reduce((sum, elem, index, arr) => {
+        return sum + Number(elem.comprice)
+    },0);
+    localStorage.setItem("total", JSON.stringify(total));
+    // console.log(total);
+    var length = choosenCart.length;
+    // console.log(length);
+    
+    document.querySelector("#priceSk").innerHTML = `Number of items: ${length} and total price ₹${total}`;
+
+    choosenCart.map(function (elem, index){
+        var boxI = document.createElement("div");
+         boxI.setAttribute("class", "boxI")
+         
+
+        var img = document.createElement("img");
+        img.src = elem.image;
+        var boxW = document.createElement("div");
+        boxW.setAttribute("class", "boxImg")
+
+        var name = document.createElement("h5");
+        name.textContent = elem.name;
+
+        var imgT = document.createElement("img");
+         imgT.src = elem.offimg;
+         imgT.setAttribute("class","pinkTag");
+
+        var calci = document.createElement("p");
+         calci.textContent = "By CALCIMAX";
+         calci.setAttribute("class", "calci");
+
+         var piece = document.createElement("p");
+         piece.textContent = "30 Piece(s) in Box";
+         piece.setAttribute("class", "pie")
+        var pers = document.createElement("p");
+        pers.innerText = elem.per;
+        pers.setAttribute("class","persof");
+
+        var stprices = document.createElement("p");
+        stprices.innerText = elem.stprice;
+        stprices.setAttribute("class","stp");
+
+        var price = document.createElement("p");
+        price.textContent = elem.price;
+        price.setAttribute("class","pcs");
+        var mrp = document.createElement("p");
+         mrp.innerText = elem.mrp;
+        mrp.setAttribute("class","mrpS");
+
+
+        // var discount = document.createElement("span");
+        // discount.textContent = elem.discount;
+        
+        var remove = document.createElement("button");
+        remove.textContent = "Remove";
+        remove.setAttribute("class", "remove")
+
+        remove.addEventListener("click", function(){
+            removeFunction(elem, index);
+        })
+
+        boxI.append(img);
+        boxW.append(imgT,pers,name,calci,piece,remove,stprices, price,mrp)
+
+        document.querySelector("#containerSKK").append(boxI,boxW);
+    });
+    function removeFunction(elem, index){
+        console.log(elem);
+        choosenCart.splice(index, 1);
+        console.log(choosenCart);
+        localStorage.setItem("cart",JSON.stringify(choosenCart));
+        window.location.reload();
+    }
+
+    function goEnterCard(elem, index){
+        var cardDetails = [];
+        localStorage.setItem("cardDetails", JSON.stringify(cardDetails));
+        window.location.href="cardDetail.html";
+    }
+</script>
